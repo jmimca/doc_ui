@@ -1,0 +1,209 @@
+/*css particle design css*/
+/* ---- reset ---- */ 
+body{ 
+    margin:0; 
+    background-size:cover;
+    font-family: Arvo, serif;
+    background-attachment:fixed;
+} 
+canvas{ 
+    display: block; 
+    vertical-align: bottom;
+    position:fixed;
+} 
+/* ---- particles.js container ---- */ 
+#particles-js{ position:absolute; width: 100%; height: 100%; background-color: #1a141b; background-image: url(""); background-repeat: no-repeat; background-size: cover; background-position: 50% 50%; position: fixed;} 
+
+/*Information div styling*/
+#info{
+    height:558px;
+    display:none;
+    margin-top:45px;
+    overflow:scroll;
+    overflow-x:hidden;
+    color:white;
+}
+#info::-webkit-scrollbar{
+    display:none;
+}
+#info{
+   -ms-overflow-style:none;
+}
+#infoTitle{
+    background-color:#d72727;
+    border-radius:40px;
+    padding-left:15px;
+    padding-right:15px;
+}
+#infoBody{
+    padding-left:20px;
+    padding-right:20px;
+}
+
+
+/*bot styling*/
+.bot{
+    height:558px;
+    margin-top: 45px;
+    border-radius: 20px;
+    border: solid 1px #d72727;
+}
+
+/*header styling*/
+.header{
+    background-color:#d72727;
+    margin:5px;
+    border-radius:40px;
+    border:solid 1px #d72727;
+    padding:8px;
+    color:white;
+    font-size:15px;
+}
+/*chat container*/
+.chat{
+    height:453px;
+    border-radius:20px;
+    margin:5px;
+    overflow:scroll;
+    overflow-x:hidden;
+    vertical-align: bottom;
+}
+.chat::-webkit-scrollbar{
+    display:none;
+}
+.chat{
+   -ms-overflow-style:none;
+}
+
+#userMsg{
+    margin-top:5px;
+    margin-bottom:5px;
+}
+#botMsg{
+    margin-top:5px;
+    margin-bottom:5px;
+    display:none;
+}
+img{
+    height:30px;
+    width:30px;
+    border-radius:25px;
+    background-color:#e37c16;
+    padding:1px;
+}
+#msg-bubble-left{
+    background-color:antiquewhite;
+    padding:0px;
+    margin:0px;
+    padding: 3px 20px 4px 20px;
+    width:fit-content; 
+    height:fit-content; 
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 45px;
+    border-top-left-radius: none;
+    border-top-right-radius: 45px;
+    color:black;
+}
+#msg-bubble-right{
+    background-color:whitesmoke;
+    padding:0px;
+    margin:0px;
+    padding: 3px 20px 4px 15px;
+    width:fit-content; 
+    height:fit-content; 
+    border-bottom-left-radius:45px;
+    border-bottom-right-radius: 40px;
+    border-top-left-radius: 45px;
+    border-top-right-radius: none;
+    color:black;
+}
+
+
+
+/*footer styleing*/
+.footer{
+    margin:5px;
+    padding:4px;
+    background-color:#d72727;
+    border-radius:40px;
+    border:solid 1px #d72727;
+}
+#queryInput{
+    border:transparent;
+    color:white;
+    font-size:17px;
+    background-color:transparent;
+    margin-top:5px;
+}
+#mic{
+    color:white;
+    font-size:20px;
+    position:relative;
+    padding:0px;
+    padding-top:6px;
+    padding-left:6px;
+}
+#queryInput:focus{
+    outline-width:0px;
+}
+#send{
+    color:white;
+    font-size:20px;
+    position:relative;
+    padding:0px;
+    padding-top:6px;
+}
+
+
+/////
+/*css for mic trigger box*/
+#micListner{
+    height:auto;
+    width:auto;
+    color:white;
+    background-color: white;
+    padding:10px;
+}
+#listner{
+    display:none;
+}
+//////////
+
+
+
+
+/*css for message loading dots*/
+
+#wave {
+	position:relative;
+	text-align:center;
+    padding:0px;
+    height:20px;
+    &:nth-child(2) {
+        animation-delay: -1.1s;
+    }
+    &:nth-child(3) {
+        animation-delay: -0.9s;
+    }
+}
+.dot {
+    display:inline-block;
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    margin-right:3px;
+    background-color:#d72727;
+    animation: wave 1.3s linear infinite; 
+}
+
+@keyframes wave{
+	0%,60%,100%{
+		transform: initial;
+	}
+	15%{
+		transform: translateY(-7px);
+	}
+}
+
+
+
