@@ -1,108 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <title>SmashBot</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">  
-      <link href="css/bootstrap.min.css" rel="stylesheet">
-      <link href='https://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
-<!--      fonts -->
-      <script defer src="fonts/js/all.js"></script>
-       <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-      <script src="js/jquery-1.12.4.js"></script>
-<!--      our css file-->
-      <link rel="stylesheet" href="css/botUI.css">
-  </head>
-  <body>
-            <!-- particles.js container --> 
-            <div id="particles-js"></div>
-      
-<!--      for chat bot and info container-->
-          <div class="container">
-              <div class="row">
-<!--                  chat bot container-->
-                  <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4 pull-right">
-                      <div class="bot">
-<!--                          header of chatbot-->
-                          <div class="header">
-                              SmashBot
-                          </div>
-<!--                          chatting box-->
-                          <div class="chat">
-                              <div id="botMsg">
-                                  <div class="container-fluid">
-                                      <div class="row">
-                                          <img src="images/bot.png" height="30" width="30" class="pull-left">
-                                          <div class="col-xs-7 pull-left" style="padding:3px;">
-                                              <div id="msg-bubble-left" class="container-fluid pull-left">
-                                                  <p id="msg-info-name-left" style="font-size:11px; color:blueviolet; margin:0px;">Bot</p>
-                                                  <p style="margin:0px; font-size:12px">
-                                                      <span id="msg-text-left">Welcome,Hi I am a smart bot. How can I help you? know more about me on left panel.Thank you! 😄 </span> &nbsp&nbsp&nbsp<span id="msg-info-time-left" class="pull-right" style="font-size:9px; color:grey; padding-top:5px;">12:45</span>
-                                                  </p>
-                                              </div>
-                                         </div>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
+    <!-- fonts -->
+    <script defer src="fonts/js/all.js"></script>
+
+    <!-- our css file-->
+    <link rel="stylesheet" href="css/botUI.css">
+</head>
+
+<body>
+    <!-- particles.js container -->
+    <div id="particles-js"></div>
+
+    <!-- for chat bot and info container-->
+    <div class="container">
+        <div class="row">
+            <!-- chat bot container-->
+            <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4 pull-right">
+                <div class="bot">
+                    <!-- header of chatbot-->
+                    <div class="header">
+                        SmashBot
+                    </div>
+                    <!-- chatting box-->
+                    <div class="chat">
+                        <div id="botMsg">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <img src="images/bot.png" height="30" width="30" class="pull-left">
+                                    <div class="col-xs-7 pull-left" style="padding:3px;">
+                                        <div id="msg-bubble-left" class="container-fluid pull-left">
+                                            <p id="msg-info-name-left" style="font-size:11px; color:blueviolet; margin:0px;">Bot</p>
+                                            <p style="margin:0px; font-size:12px">
+                                                <span id="msg-text-left">Welcome,Hi I am a smart bot. How can I help you? know more about me on left panel.Thank you! 😄 </span> &nbsp&nbsp&nbsp<span id="msg-info-time-left" class="pull-right" style="font-size:9px; color:grey; padding-top:5px;">12:45</span>
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-<!--                        user msg bubble template-->
+                        </div>
+                        <!-- user msg bubble template-->
 
-                          </div>
-<!--                          footer of chat container-->
-                          <div class="footer">
-                              <div class="container-fluid">
-                                  <div class="row">
-                                      <div class="col-xs-1" id="mic">
-                                          <i class="fas fa-microphone"></i> 
-                                      </div>
-                                      <div class="col-xs-10">
-                                          <input type="text" id="queryInput" class="col-xs-12"  placeholder="Say Something..." style="border:none;">
-                                      </div>
-                                      <div class="col-xs-1" id="send">
-                                          <i class="fas fa-paper-plane"></i> 
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-<!--                  info container-->
-                  <!-- div for showing info came from bot search-->
-                  <div class="col-md-6 col-lg-7 col-xs-12 pull-left">
-                      <div id="info">
-                          <div id="infoTitle">
-                              <h2>About Me! </h2>
-                          </div>
-                          <hr>
-                          <div id="infoBody">
-                              <h3>What do I know?</h3>
-                              <h4>Hi I am speclist in searching about Movie Reviews, Playing you tube videos, you tube songs, and much more!</h4>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-<!--      mic listner block pop up-->
-      <div id="micListner">
-          <div class="container-fluid">
-              <div id="listner" class="row col-xs-4 col-xs-offset-4" style="background-color:white; border-radius:20px; align-content:center; padding:20px; border:solid 2px #d72727;">
-                  <h4 style="color:#d72727; text-align:center;">I am Listening...</h4>
-                  <div id="micListnerMic" style="font-size:40px; color:#d72727; text-align:center;"><i class="fas fa-microphone"></i></div>
-                  <div id="loader" style="text-align:center;">
-                      <img src="images/loader.gif" style="height:60px; width:60px;background-color:white;">
-                  </div>
-              </div>
-          </div>
-      </div>
-      
-        <script>
-           var dt = new Date();
-            var time = dt.getHours() + ":" + dt.getMinutes();
-            $('#msg-info-time-left').text(time);
-        </script>
-          <script src="js/particles.min.js"></script> 
-          <script src="js/stats.min.js"></script>
-          <script src="js/bootstrap.min.js"></script>
-    <!--              this script file-->
-          <script src="js/botUI.js"></script>
-  </body>
+                    </div>
+                    <!-- footer of chat container-->
+                    <div class="footer">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-xs-1" id="mic">
+                                    <i class="fas fa-microphone"></i>
+                                </div>
+                                <div class="col-xs-10">
+                                    <input type="text" id="queryInput" class="col-xs-12" placeholder="Say Something..." style="border:none;">
+                                </div>
+                                <div class="col-xs-1" id="send">
+                                    <i class="fas fa-paper-plane"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- info container-->
+            <!-- div for showing info came from bot search-->
+            <div class="col-md-6 col-lg-7 col-xs-12 pull-left">
+                <div id="info">
+                    <div id="infoTitle">
+                        <h2>About Me! </h2>
+                    </div>
+                    <hr>
+                    <div id="infoBody">
+                        <h3>What do I know?</h3>
+                        <h4>Hi I am speclist in searching about Movie Reviews, Playing you tube videos, you tube songs, and much more!</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- mic listner block pop up-->
+    <div id="micListner">
+        <div class="container-fluid">
+            <div id="listner" class="row col-xs-4 col-xs-offset-4" style="background-color:white; border-radius:20px; align-content:center; padding:20px; border:solid 2px #d72727;">
+                <h4 style="color:#d72727; text-align:center;">I am Listening...</h4>
+                <div id="micListnerMic" style="font-size:40px; color:#d72727; text-align:center;"><i class="fas fa-microphone"></i></div>
+                <div id="loader" style="text-align:center;">
+                    <img src="images/loader.gif" style="height:60px; width:60px;background-color:white;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- for electron and browser compatibility of 3rd party scripts; Unset module -->
+    <script>
+        if (typeof module === 'object') {
+            window.module = module;
+            module = undefined;
+        }
+    </script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-1.12.4.js"></script>
+    
+    <script>
+        var dt = new Date();
+        var time = dt.getHours() + ":" + dt.getMinutes();
+        $('#msg-info-time-left').text(time);
+    </script>
+
+    <script src="js/particles.min.js"></script>
+    <script src="js/stats.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- this script file -->
+    <script src="js/botUI.js"></script>
+    
+    <!-- Restore module -->
+    <script>
+        if (window.module) module = window.module;
+    </script>
+</body>
+
 </html>
