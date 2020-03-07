@@ -12,7 +12,7 @@ app.on('ready', function(){
         },
     });
 
-    mainWindow.loadFile('web/example.html');
+    mainWindow.loadFile('web/index.html');
 });
 
 // this is sahil. testing git

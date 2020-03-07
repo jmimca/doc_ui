@@ -115,6 +115,19 @@ $('#queryInput').keypress(function(event){
         $('#send').click();
     }
 });
+
+//trigger the mic icon function
+$('#mic').click(function(){
+    $('#listner').show();
+    
+    //listening process and storing the speech to text in textinput for showing on chatbox
+    
+    //calling send .click()  hide listner pop up after 4 seconds after all work have done
+    window.setTimeout(() => {
+        $('#listner').hide();
+        $('#send').click();    
+    },4000);
+});
     
     
 //functions

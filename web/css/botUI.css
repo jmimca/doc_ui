@@ -5,6 +5,7 @@ body{
     background-size:cover;
     font-family: Arvo, serif;
     background-attachment:fixed;
+    position:relative;
 } 
 canvas{ 
     display: block; 
@@ -137,10 +138,10 @@ img{
 }
 #mic{
     color:white;
-    font-size:20px;
+    font-size:18px;
     position:relative;
     padding:0px;
-    padding-top:6px;
+    padding-top:4px;
     padding-left:6px;
 }
 #queryInput:focus{
@@ -148,12 +149,11 @@ img{
 }
 #send{
     color:white;
-    font-size:20px;
+    font-size:18px;
     position:relative;
     padding:0px;
-    padding-top:6px;
+    padding-top:4px;
 }
-
 
 /////
 /*css for mic trigger box*/
@@ -162,15 +162,17 @@ img{
     width:auto;
     color:white;
     background-color: white;
-    padding:10px;
+    padding:20px;
+    
 }
 #listner{
     display:none;
+    position:fixed;
+    z-index:9002;
+    top:35%;
+    left:0%;    
 }
 //////////
-
-
-
 
 /*css for message loading dots*/
 
