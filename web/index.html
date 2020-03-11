@@ -104,7 +104,7 @@
     </script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery-1.12.4.js"></script>
-    
+
     <script>
         var dt = new Date();
         var time = dt.getHours() + ":" + dt.getMinutes();
@@ -114,12 +114,21 @@
     <script src="js/particles.min.js"></script>
     <script src="js/stats.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <!-- this script file -->
-    <script src="js/botUI.js"></script>
-    
     <!-- Restore module -->
     <script>
         if (window.module) module = window.module;
+    </script>
+    <!-- this script file -->
+    <script src="js/botUI.js"></script>
+    <script src="hwdetect/web_voice_processor.js"></script>
+    <script src="hwdetect/porcupine_manager.js"></script>
+    <script src="hwdetect/hwdetect.js" type='text/javascript'></script>
+    <script src="recordaudio/recordintent_manager.js" type='text/javascript'></script>
+    <script>
+        let hwdetect = HoteWordDetect();
+        let audRecoder = AudioRecorder("recordaudio/recordintent_worker.js", 16000, hwdetect.resume_detect);
+        audRecoder.init();
+        hwdetect.start_detect(audRecoder.recordUtterence);
     </script>
 </body>
 

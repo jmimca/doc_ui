@@ -1,11 +1,11 @@
 const dialogflow = require('dialogflow');
 //const uuid = require('uuid');
 var path = require('path');
-const util = require('util');
-const {Transform, pipeline} = require('stream');
-const {struct} = require('pb-util');
-const pump = util.promisify(pipeline);
-const recorder = require('node-record-lpcm16');
+//const util = require('util');
+//const {Transform, pipeline} = require('stream');
+//const {struct} = require('pb-util');
+//const pump = util.promisify(pipeline);
+//const recorder = require('node-record-lpcm16');
 
 
 

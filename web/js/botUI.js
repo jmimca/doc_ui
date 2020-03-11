@@ -1,151 +1,177 @@
+const { ipcRenderer } = require('electron');
 
-$(function(){
+
+$(function() {
     //for css particle /////////////////////////////////////////////////////////////////
-particlesJS("particles-js", {
-  particles: {
-    number: { value: 400, density: { enable: true, value_area: 800 } },
-    color: { value: "#d45d64" },
-    shape: {
-      type: "star",
-      stroke: { width: 0, color: "#000000" },
-      polygon: { nb_sides: 5 },
-      image: { src: "img/github.svg", width: 100, height: 100 }
-    },
-    opacity: {
-      value: 0.5,
-      random: true,
-      anim: { enable: false, speed: 1, opacity_min: 0.1, sync: false }
-    },
-    size: {
-      value: 10,
-      random: true,
-      anim: { enable: false, speed: 40, size_min: 0.1, sync: false }
-    },
-    line_linked: {
-      enable: false,
-      distance: 500,
-      color: "#ffffff",
-      opacity: 0.4,
-      width: 2
-    },
-    move: {
-      enable: true,
-      speed: 6,
-      direction: "bottom",
-      random: false,
-      straight: false,
-      out_mode: "out",
-      bounce: false,
-      attract: { enable: false, rotateX: 600, rotateY: 1200 }
-    }
-  },
-  interactivity: {
-    detect_on: "canvas",
-    events: {
-      onhover: { enable: true, mode: "bubble" },
-      onclick: { enable: true, mode: "repulse" },
-      resize: true
-    },
-    modes: {
-      grab: { distance: 400, line_linked: { opacity: 0.5 } },
-      bubble: { distance: 400, size: 4, duration: 0.3, opacity: 1, speed: 3 },
-      repulse: { distance: 200, duration: 0.4 },
-      push: { particles_nb: 4 },
-      remove: { particles_nb: 2 }
-    }
-  },
-  retina_detect: true
-});
-    
-//////start from  here//////////////////////////////////////////////////////////////
-
-//wait for half second after loading the page to show welcome message and about me
-$(window).load(function(){
-   function showInitialMessage(){
-      $("#botMsg").show();
-      $("#info").show();
-   };
-   window.setTimeout( showInitialMessage, 500); // 1/2 second
-});
-
-/////////////////////////Main start//////////////////////////////////////////////
-//variables
-var username="User";
-var userMsgText="";
-var botSide="left";
-var userSide="right";
-var botMsgText="";
-var botName="Bot";
-
-// on click of send button
-$('#send').click(function(event){
-    function showUserMessage(){
-        userMsgText = $('#queryInput').val();
-        if (userMsgText.trim()) {
-            // is empty or whitespace
-            addMessageToChat(username,userMsgText,userSide);
-           
-///////////////////////////////////// temp example of conversation//////////////////////////////
-            window.setTimeout(showWaitingBox(),200);
-            
-            if(userMsgText=="hi" || userMsgText=="hello"){
-                botMsgText="Hello! "+username+" how are you? tell me something about yourself please!";
-                window.setTimeout(() => {
-                    $('#waitMsg').last().remove();
-                    addMessageToChat(botName,botMsgText,botSide);
-                },1500);
-            }else{
-                botMsgText="Sorry! I din't understand it.";
-                window.setTimeout(() => {
-                    $('#waitMsg').last().remove();
-                    addMessageToChat(botName,botMsgText,botSide);
-                },1500);
-                
+    particlesJS("particles-js", {
+        particles: {
+            number: {
+                value: 400,
+                density: {
+                    enable: true,
+                    value_area: 800
+                }
+            },
+            color: {
+                value: "#d45d64"
+            },
+            shape: {
+                type: "star",
+                stroke: {
+                    width: 0,
+                    color: "#000000"
+                },
+                polygon: {
+                    nb_sides: 5
+                },
+                image: {
+                    src: "img/github.svg",
+                    width: 100,
+                    height: 100
+                }
+            },
+            opacity: {
+                value: 0.5,
+                random: true,
+                anim: {
+                    enable: false,
+                    speed: 1,
+                    opacity_min: 0.1,
+                    sync: false
+                }
+            },
+            size: {
+                value: 10,
+                random: true,
+                anim: {
+                    enable: false,
+                    speed: 40,
+                    size_min: 0.1,
+                    sync: false
+                }
+            },
+            line_linked: {
+                enable: false,
+                distance: 500,
+                color: "#ffffff",
+                opacity: 0.4,
+                width: 2
+            },
+            move: {
+                enable: true,
+                speed: 6,
+                direction: "bottom",
+                random: false,
+                straight: false,
+                out_mode: "out",
+                bounce: false,
+                attract: {
+                    enable: false,
+                    rotateX: 600,
+                    rotateY: 1200
+                }
             }
-////////////////////////////////////////////////////////////////////////////////////////////////
-        }
-    }
-    window.setTimeout(showUserMessage, 300);
+        },
+        interactivity: {
+            detect_on: "canvas",
+            events: {
+                onhover: {
+                    enable: true,
+                    mode: "bubble"
+                },
+                onclick: {
+                    enable: true,
+                    mode: "repulse"
+                },
+                resize: true
+            },
+            modes: {
+                grab: {
+                    distance: 400,
+                    line_linked: {
+                        opacity: 0.5
+                    }
+                },
+                bubble: {
+                    distance: 400,
+                    size: 4,
+                    duration: 0.3,
+                    opacity: 1,
+                    speed: 3
+                },
+                repulse: {
+                    distance: 200,
+                    duration: 0.4
+                },
+                push: {
+                    particles_nb: 4
+                },
+                remove: {
+                    particles_nb: 2
+                }
+            }
+        },
+        retina_detect: true
+    });
+
+    //////start from  here//////////////////////////////////////////////////////////////
+
+    //wait for half second after loading the page to show welcome message and about me
+    $(window).load(function() {
+        function showInitialMessage() {
+            $("#botMsg").show();
+            $("#info").show();
+        };
+        window.setTimeout(showInitialMessage, 500); // 1/2 second
+    });
+
 });
 
-//trigger send message on enter key stroke
-$('#queryInput').keypress(function(event){ 
-    var keyCode = (event.keyCode ? event.keyCode : event.which);   
-    if (keyCode == 13) {
-        $('#send').click();
-    }
-});
 
-//trigger the mic icon function
-$('#mic').click(function(){
-    $('#listner').show();
-    
-    //listening process and storing the speech to text in textinput for showing on chatbox
-    
-    //calling send .click()  hide listner pop up after 4 seconds after all work have done
-    window.setTimeout(() => {
+
+
+var BotUiManipulator = function(options) {
+
+    /*
+     * Variables accessible
+     * in the class
+     */
+    var uivars = {
+        username: "User",
+        botSide: "left",
+        userSide: "right",
+        botName: "SmashBot",
+    };
+
+    /*
+     * Can access this.method
+     * inside other methods using
+     * root.method()
+     */
+    var root = this;
+
+    /*
+     * Constructor
+     */
+    this.construct = function(options) {
+        $.extend(uivars, options);
+    };
+
+
+    this.showMicListener = function() {
+        $('#listner').show();
+    }
+
+    this.hideMicListener = function() {
         $('#listner').hide();
-        $('#send').click();    
-    },4000);
-});
-    
-    
-//functions
-    //to system time
-    function showTime(){
-        var dt = new Date();
-        var time = dt.getHours() + ":" + dt.getMinutes();
-        $('#msg-info-time-left').text(time);
-        return time;
     }
 
-    //to add user massage
-    function addMessageToChat(username, textMsg, side){
-        var img="";
-        if(side=="left"){
-            img="bot";
-        }else{
-            img="user";
+    var addMessageToChat = function(username, textMsg, side) {
+        var img = "";
+        if (side == "left") {
+            img = "bot";
+        } else {
+            img = "user";
         }
         var msgHtml = `
             <div id="userMsg">
@@ -165,11 +191,27 @@ $('#mic').click(function(){
             </div>
         `;
         $('.chat').append(msgHtml);
-        $('.chat').scrollTop($('.chat').height()); 
+        $('.chat').scrollTop($('.chat').height());
     }
-    //show waiting box for thingking
-    function showWaitingBox(){
-        var waitHtml=`
+
+
+    this.addBotMessage = function(msg) {
+        addMessageToChat(uivars.botName, msg, uivars.botSide);
+    }
+
+    this.addUserMessage = function(msg) {
+        addMessageToChat(uivars.username, msg, uivars.userSide);
+    }
+
+    var showTime = function() {
+        var dt = new Date();
+        var time = dt.getHours() + ":" + dt.getMinutes();
+        $('#msg-info-time-left').text(time);
+        return time;
+    }
+
+    this.showWaitingBox = function() {
+        var waitHtml = `
             <div id="waitMsg">
                 <div class="container-fluid">
                     <div class="row">
@@ -190,4 +232,54 @@ $('#mic').click(function(){
         $('.chat').append(waitHtml);
         $('.chat').scrollTop($('.chat').height());
     }
+
+    this.hideWaitingBox = function() {
+        $('#waitMsg').last().remove();
+    }
+
+    /*
+     * Pass options when class instantiated
+     */
+    this.construct(options);
+
+};
+
+
+var homepageui = new BotUiManipulator();
+
+// All User Events
+$(function() {
+
+    $('#send').click(function(event) {
+        userMsgText = $('#queryInput').val();
+        if (userMsgText.trim()) { // is empty or whitespace
+            ipcRenderer.send("intentDetectText", userMsgText); // send to main electron process
+            homepageui.addUserMessage(userMsgText);
+            homepageui.showWaitingBox();
+        }
+    });
+    
+    //trigger send message on enter key stroke
+    $('#queryInput').keypress(function(event) {
+        var keyCode = (event.keyCode ? event.keyCode : event.which);
+        if (keyCode == 13) {
+            $('#send').click();
+        }
+    });
+
+    //trigger the mic icon function
+    $('#mic').click(function() {
+        homepageui.showMicListener();
+        //To do: bypass hotword detection and directly call audiorecorder
+        //
+    });
+
+
+});
+
+
+
+ipcRenderer.on('fullfillmentText', (event, botText) => {
+    homepageui.hideWaitingBox();
+    homepageui.addBotMessage(botText);
 });
