@@ -5,3 +5,14 @@ npm-debug.log*
 
 # Dependency directories
 node_modules/
+
+# Keys and credentials
+sentibot.json
+
+package-lock.json
+
+
+
+
+
+
