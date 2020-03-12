@@ -1,4 +1,4 @@
-const { ipcRenderer } = require('electron');
+//const { ipcRenderer } = require('electron');
 
 
 $(function() {
@@ -252,6 +252,7 @@ $(function() {
 
     $('#send').click(function(event) {
         userMsgText = $('#queryInput').val();
+        $('#queryInput').val("");
         if (userMsgText.trim()) { // is empty or whitespace
             ipcRenderer.send("intentDetectText", userMsgText); // send to main electron process
             homepageui.addUserMessage(userMsgText);
@@ -270,6 +271,8 @@ $(function() {
     //trigger the mic icon function
     $('#mic').click(function() {
         homepageui.showMicListener();
+        hwdetect.pause_detect();
+        audRecoder.recordUtterence();
         //To do: bypass hotword detection and directly call audiorecorder
         //
     });
@@ -277,9 +280,42 @@ $(function() {
 
 });
 
+let playAudioFromBytes = function( bytes ) {  
+    var buffer = new Uint8Array( bytes.length );
+    buffer.set( new Uint8Array(bytes), 0 );
+    let context = new AudioContext();
+    context.decodeAudioData(buffer.buffer, function(audbuffer){
+        var source = context.createBufferSource();
+        source.buffer = audbuffer;
+        source.connect( context.destination );
+        source.start(0);
+
+    });
+}
 
 
-ipcRenderer.on('fullfillmentText', (event, botText) => {
+
+ipcRenderer.on('fullfillmentText', (event, data) => {
+    if(data.userText != null && data.userText != '')
+        homepageui.addUserMessage(data.userText);
+
     homepageui.hideWaitingBox();
-    homepageui.addBotMessage(botText);
+    homepageui.addBotMessage(data.botText);
+    //console.log(data.outputAudio);
+    //console.log(type(outputAudio));
+    playAudioFromBytes(data.outputAudio);
+    // playAudio(data.outputAudio)
 });
+
+
+
+
+
+    
+
+
+
+
+
+
+

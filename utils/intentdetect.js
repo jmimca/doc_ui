@@ -38,6 +38,10 @@ class IntentDetect{
                 languageCode: 'en-US',
               },
             },
+            outputAudioConfig: {
+              audioEncoding: 'OUTPUT_AUDIO_ENCODING_LINEAR_16',
+              sampleRateHertz: 44100
+            },
           };
           const responses = await this.sessionClient.detectIntent(request);
           return responses[0];
@@ -65,6 +69,10 @@ class IntentDetect{
             sampleRateHertz: samplerate,
             languageCode: 'en-US',
           },
+        },
+        outputAudioConfig: {
+          audioEncoding: 'OUTPUT_AUDIO_ENCODING_LINEAR_16',
+          sampleRateHertz: 44100
         },
         inputAudio: audiodata,
       };

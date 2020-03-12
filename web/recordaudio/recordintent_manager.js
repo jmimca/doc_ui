@@ -1,4 +1,4 @@
-//const { ipcRenderer } = require('electron');
+const { ipcRenderer } = require('electron');
 
 
 const sleep = (milliseconds) => {
@@ -7,7 +7,7 @@ const sleep = (milliseconds) => {
 
 
 
-AudioRecorder = (function(toWavdownsamplerScript, outputSampleRate, OnUserStoppedSpeaking) { //silencedelay = 1500, mindecibels = -55) {
+AudioRecorder = (function(toWavdownsamplerScript, outputSampleRate, OnUserStartSpeaking = _=>{}, OnUserStoppedSpeaking = _=>{}) { //silencedelay = 1500, mindecibels = -55) {
 
 
     // control variables
@@ -73,7 +73,7 @@ AudioRecorder = (function(toWavdownsamplerScript, outputSampleRate, OnUserStoppe
 
     }
 
-    init = function(silencedelay = 800, mindecibels = -55) {
+    init = function(silencedelay = 700, mindecibels = -55) {
         analyser.minDecibels = mindecibels;
         silence_delay = silencedelay;
         self.navigator.mediaDevices.getUserMedia({
@@ -132,6 +132,7 @@ AudioRecorder = (function(toWavdownsamplerScript, outputSampleRate, OnUserStoppe
         //audiochunks = new IPCStream('audioStreamData');
         //ipcRenderer.send('streamspeechinit', true) ;
         sleep(1500);
+        OnUserStartSpeaking();
         isListening = true;
         homepageui.showMicListener();
         console.log("Speak Now");

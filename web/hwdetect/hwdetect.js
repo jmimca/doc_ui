@@ -396,7 +396,7 @@ HoteWordDetect = (function() {
         if (keyword === "crimson") { //&& !this.is_paused) {
             //this.is_paused = true;
             //this.pauseStartSeconds = currentTimeSeconds();
-            pause_detect();
+            //pause_detect();
             afterHotword();
             ////// ON WAKE WORD DETECT //////
         }
