@@ -227,15 +227,12 @@ var BotUiManipulator = function(options) {
     }
     
     this.showAboutBotInfoInitial=function(){
-        var titlehtml=`
-            <h2>About Me! </h2>
-        `;
         var bodyhtml=`
             <h3>What do I know?</h3>
             <h4>Hi I am speclist in searching about Movie Reviews, Playing you tube videos, you tube songs, and much more!</h4>
         `;
-        $('#intentTitle').html(titlehtml);
-        $('#intentBody').html(bodyhtml);
+        $('#intentOutput #title').html('About me!');
+        $('#intentOutput #intentBody').html(bodyhtml);
     }
     
     /*

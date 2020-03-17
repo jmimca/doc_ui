@@ -38,12 +38,7 @@ canvas{
 /*Information div styling*/
 #intentOutput{
     height:550px;
-    overflow:scroll;
-    overflow-x:hidden;
     color:white;
-}
-#intentOutput::-webkit-scrollbar{
-    display:none;
 }
 #intentOutput{
    -ms-overflow-style:none;
@@ -56,8 +51,14 @@ canvas{
     padding-right:15px;
 }
 #intentBody{
+    height:450px;
+    overflow:scroll;
+    overflow-x:hidden;
     padding-left:15px;
     padding-right:15px;
+}
+#intentBody::-webkit-scrollbar{
+    display:none;
 }
 
 
