@@ -113,20 +113,9 @@ $(function() {
         },
         retina_detect: true
     });
-
-    //////start from  here//////////////////////////////////////////////////////////////
-
-    //wait for half second after loading the page to show welcome message and about me
-    $(window).load(function() {
-        function showInitialMessage() {
-            $("#botMsg").show();
-            $("#info").show();
-        };
-        window.setTimeout(showInitialMessage, 500); // 1/2 second
-    });
-
 });
 
+ //////start from  here//////////////////////////////////////////////////////////////
 
 
 
@@ -236,7 +225,19 @@ var BotUiManipulator = function(options) {
     this.hideWaitingBox = function() {
         $('#waitMsg').last().remove();
     }
-
+    
+    this.showAboutBotInfoInitial=function(){
+        var titlehtml=`
+            <h2>About Me! </h2>
+        `;
+        var bodyhtml=`
+            <h3>What do I know?</h3>
+            <h4>Hi I am speclist in searching about Movie Reviews, Playing you tube videos, you tube songs, and much more!</h4>
+        `;
+        $('#intentTitle').html(titlehtml);
+        $('#intentBody').html(bodyhtml);
+    }
+    
     /*
      * Pass options when class instantiated
      */
@@ -249,6 +250,15 @@ var homepageui = new BotUiManipulator();
 
 // All User Events
 $(function() {
+    
+    //wait for half second after loading the page to show welcome message and about me
+    $(window).load(function() {
+        function showInitialMessage() {
+            $("#botMsg").show();
+            homepageui.showAboutBotInfoInitial();
+        };
+        window.setTimeout(showInitialMessage, 500); // 1/2 second
+    });
 
     $('#send').click(function(event) {
         userMsgText = $('#queryInput').val();
@@ -298,7 +308,7 @@ let playAudioFromBytes = function( bytes ) {
 ipcRenderer.on('fullfillmentText', (event, data) => {
     if(data.userText != null && data.userText != '')
         homepageui.addUserMessage(data.userText);
-
+    
     homepageui.hideWaitingBox();
     homepageui.addBotMessage(data.botText);
     //console.log(data.outputAudio);

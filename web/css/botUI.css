@@ -15,30 +15,49 @@ canvas{
 /* ---- particles.js container ---- */ 
 #particles-js{ position:absolute; width: 100%; height: 100%; background-color: #1a141b; background-image: url(""); background-repeat: no-repeat; background-size: cover; background-position: 50% 50%; position: fixed;} 
 
+/*left side info box*/
+#infoBox{
+    background-color:transparent;
+    height: 558px;
+    color:white;
+    border-radius:20px;
+    margin-top: 45px;
+    border:solid 1px #d72727;
+}
+
+/*static content div styling*/
+#staticContent{
+    height:557px;
+    overflow:hidden;
+    color:white;
+    background-color:#d72727;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
 /*Information div styling*/
-#info{
-    height:558px;
-    display:none;
-    margin-top:45px;
+#intentOutput{
+    height:550px;
     overflow:scroll;
     overflow-x:hidden;
     color:white;
 }
-#info::-webkit-scrollbar{
+#intentOutput::-webkit-scrollbar{
     display:none;
 }
-#info{
+#intentOutput{
    -ms-overflow-style:none;
 }
-#infoTitle{
+#intentTitle{
     background-color:#d72727;
     border-radius:40px;
+    padding:0px;
     padding-left:15px;
     padding-right:15px;
 }
-#infoBody{
-    padding-left:20px;
-    padding-right:20px;
+#intentBody{
+    padding-left:15px;
+    padding-right:15px;
 }
 
 
@@ -48,6 +67,7 @@ canvas{
     margin-top: 45px;
     border-radius: 20px;
     border: solid 1px #d72727;
+    background-color:transparent;
 }
 
 /*header styling*/

@@ -19,7 +19,7 @@
     <div id="particles-js"></div>
 
     <!-- for chat bot and info container-->
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <!-- chat bot container-->
             <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4 pull-right">
@@ -67,16 +67,34 @@
                 </div>
             </div>
             <!-- info container-->
-            <!-- div for showing info came from bot search-->
-            <div class="col-md-6 col-lg-7 col-xs-12 pull-left">
-                <div id="info">
-                    <div id="infoTitle">
-                        <h2>About Me! </h2>
-                    </div>
-                    <hr>
-                    <div id="infoBody">
-                        <h3>What do I know?</h3>
-                        <h4>Hi I am speclist in searching about Movie Reviews, Playing you tube videos, you tube songs, and much more!</h4>
+            <!-- div for showing outcome came from bot search-->
+            <div class="col-md-6 col-lg-8 col-xs-12 pull-left">
+                <div id="infoBox">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <!--div for static content to be shown in the panel (non scrollable div)-->
+                            <div class="col-xs-4" id="staticContent" style="padding:0px; position:relative;">
+                                <div id="content1" style="height:38%; width:100%; border:solid 1px black; position:absolute; bottom:62%; border-top-left-radius: 20px;">
+                                    static content id=content1
+                                </div>
+                                <div id="content2" style="height:38%; width:100%; border:solid 1px black; position:absolute; bottom:22%;">
+                                    static content id=content2
+                                </div>
+                                <div id="content3" style="height:20%; width:100%; border:solid 1px black; position:absolute; bottom:1px; border-bottom-left-radius: 20px;">
+                                    static content id=content3
+                                </div>
+                            </div>
+                            <!--div for dynamic output (scrollable div) to be shown in the panel-->
+                            <div class="col-xs-8" id="intentOutput">
+                                <div id="intentTitle">
+<!--                                    title content dynamic using js-->
+                                </div>
+                                <hr>
+                                <div id="intentBody">
+<!--                                    body of the intent dynamic using js-->
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
