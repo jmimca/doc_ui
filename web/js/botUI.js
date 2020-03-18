@@ -1,5 +1,6 @@
 //const { ipcRenderer } = require('electron');
 
+const { Buffer } = global;
 
 $(function() {
     //for css particle /////////////////////////////////////////////////////////////////
@@ -280,21 +281,38 @@ $(function() {
 
 });
 
-let playAudioFromBytes = function( bytes ) {  
+let playAudioFromBytes = function( bytes, afterwards=null ) {  
+
     var buffer = new Uint8Array( bytes.length );
     buffer.set( new Uint8Array(bytes), 0 );
     let context = new AudioContext();
-    context.decodeAudioData(buffer.buffer, function(audbuffer){
-        var source = context.createBufferSource();
+    var source = context.createBufferSource();
+
+    context.decodeAudioData(buffer.buffer, function(audbuffer){  
         source.buffer = audbuffer;
         source.connect( context.destination );
         source.start(0);
-
     });
+
+    // to be called when bot audio response ends
+    if(afterwards != null){
+        source.onended = function(event){
+            console.log("Audio From Bytes ended");
+            console.log(afterwards);
+            afterwards.fn(afterwards.params);
+        };
+    }
+
 }
 
+let speechToText = function(stt){
+    console.log("SPEECH TO TEXT CALLED!");
+    var utterThis = new SpeechSynthesisUtterance(stt.text);
+    utterThis.lang = stt.lang || 'en';
+    speechSynthesis.speak(utterThis);
+}
 
-
+/*
 ipcRenderer.on('fullfillmentText', (event, data) => {
     if(data.userText != null && data.userText != '')
         homepageui.addUserMessage(data.userText);
@@ -305,14 +323,42 @@ ipcRenderer.on('fullfillmentText', (event, data) => {
     //console.log(type(outputAudio));
     playAudioFromBytes(data.outputAudio);
     // playAudio(data.outputAudio)
+});*/
+
+
+// to be replaced with a class with full UI/audio exposure for close to natural output
+ipcRenderer.on('newTempfullfillment', (event, data) => {
+    console.log(data);
+    homepageui.hideWaitingBox();
+    let decoder = new TextDecoder("utf-8");
+    if(data.userText != null && data.userText != '')
+        homepageui.addUserMessage(data.userText);
+
+    if(data.botText != null && data.botText.length)
+        homepageui.addBotMessage(decoder.decode(data.botText));
+
+    let afterwards = null;    
+    if(data.stt != null && Object.keys(data.stt).length !== 0 ){
+        //speechToText({text:Buffer.from(data.stt.text).toString('utf-8'), lang: data.stt.lang});
+        afterwards = {}
+        afterwards.fn = speechToText;
+        afterwards.params = {text:decoder.decode(data.stt.text), lang: data.stt.lang};
+    }      
+
+    
+    if(data.outputAudio != null && data.outputAudio.length)
+        playAudioFromBytes(data.outputAudio, afterwards);   
+
+   
 });
 
 
 
-
-
     
-
+var BotInteraction = function(options) {
+    // this will replace above function to expose better API to interact with bot accespting
+    // functions and parameters
+}
 
 
 

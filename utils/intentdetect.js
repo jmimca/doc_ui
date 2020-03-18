@@ -18,7 +18,7 @@ class IntentDetect{
             keyFilename: path.join(__dirname, "..", "sentibot.json") // KEY FILE;
         });
         // this.sessionId = uuid.v4();
-        this.sessionId = "123456789"; // testing only
+        this.sessionId = "1234567910"; // testing only
         this.sessionPath = this.sessionClient.sessionPath(projectId, this.sessionId);        
     }
 
@@ -44,6 +44,7 @@ class IntentDetect{
             },
           };
           const responses = await this.sessionClient.detectIntent(request);
+          //console.log(responses);
           return responses[0];
           /*console.log(`${responses}\n\n`)
           console.log('Detected intent');
