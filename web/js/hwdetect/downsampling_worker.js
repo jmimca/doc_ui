@@ -1,3 +1,6 @@
+/*
+    Porcupine's down sampling worker script
+*/
 onmessage = function (e) {
     switch (e.data.command) {
         case "init":

@@ -1,13 +1,14 @@
 const { ipcRenderer } = require('electron');
 
 
-const sleep = (milliseconds) => {
-    return new Promise(resolve => setTimeout(resolve, milliseconds))
-}
-
-
-
-AudioRecorder = (function(toWavdownsamplerScript, outputSampleRate, OnUserStartSpeaking = _=>{}, OnUserStoppedSpeaking = _=>{}) { //silencedelay = 1500, mindecibels = -55) {
+/** 
+ * Audio Recorder class 
+ * @param toWavdownsamplerScript - worker script to convert to wav with downsampling
+ * @param outputSampleRate - desired sample rate
+ * @param OnUserStartSpeaking - callback for when user starts speaking 
+ * @param OnUserStoppedSpeaking - callback for when user stops speaking
+ */
+AudioRecorder = (function(toWavdownsamplerScript, outputSampleRate, OnUserStartSpeaking = _=>{}, OnUserStoppedSpeaking = _=>{}) { 
 
 
     // control variables
@@ -16,8 +17,10 @@ AudioRecorder = (function(toWavdownsamplerScript, outputSampleRate, OnUserStartS
     // audio processing WebAPI
     const audioContext = new AudioContext();
     const analyser = audioContext.createAnalyser();
-    const WAVConvNode = audioContext.createScriptProcessor(4096, 1, 1);
     var audioSource;
+
+    // audinode for PCM16 conversion with downsampling
+    const WAVConvNode = audioContext.createScriptProcessor(4096, 1, 1);
 
     // Silence Detection Settings
     analyser.minDecibels; //= mindecibels;
@@ -35,27 +38,38 @@ AudioRecorder = (function(toWavdownsamplerScript, outputSampleRate, OnUserStartS
     // BG Workers
     let toWavdownsampler;
 
+    /*
+    * To detect Silence in audio stream.
+    * Uses silence_delay and mindecibels to detect silence
+    */
     SilenceDetector = function(time) {
         requestAnimationFrame(SilenceDetector); // loop every 60th of a second to check
         analyser.getByteFrequencyData(freqdata); // get current data
 
         // if there is data above the given db limit
         if (freqdata.some(v => v)) {
-            if (!is_speaking && isListening) { // check if already listening
+
+            // check user was not already talking but audio data from user is required (mic isListening)
+            if (!is_speaking && isListening) { 
                 is_speaking = true;
-                // OnUserSpeaking();
                 console.log(' Speech detected ');
             }
-            silence_start = time; // Update silence start time to now
+
+            // Update silence start time to now
+            silence_start = time; 
         }
 
+        // check if user was speaking and now there is silence for more than silence_delay (time)
         if (is_speaking && time - silence_start > silence_delay) {
             homepageui.hideMicListener();
+            // check if audio chunks is not empty
             if (audiochunks.length) {
                 const recording = new Blob(audiochunks);
                 let auddata = (async () => {
                     return await recording.arrayBuffer();
                 });
+
+                // send data to detect user intent
                 recording.arrayBuffer()
                     .then(
                         buffer => {
@@ -73,6 +87,11 @@ AudioRecorder = (function(toWavdownsamplerScript, outputSampleRate, OnUserStartS
 
     }
 
+    /** 
+    * Initialise Audio Recorder instance 
+    * @param {number=} silencedelay - silence time after which recording is halted
+    * @param {number=} mindecibels - minimum decibel value to consider speech
+    */
     init = function(silencedelay = 700, mindecibels = -55) {
         analyser.minDecibels = mindecibels;
         silence_delay = silencedelay;
@@ -94,13 +113,6 @@ AudioRecorder = (function(toWavdownsamplerScript, outputSampleRate, OnUserStartS
                         command: "wavdownsample",
                         inputFrame: e.inputBuffer.getChannelData(0)
                     });
-                    //audiochunks.push(output);
-                    //console.log(typeof(output));
-
-                    //audiochunks.write(new Uint8Array(data_16.buffer, data_16.byteOffset, data_16.byteLength));
-                    //let aud = new Uint8Array(output.buffer, output.byteOffset, output.byteLength)
-                    //console.log(aud);
-                    //ipcRenderer.send('streamdatarec', {data:output.buffer, isend:false}); 
                 };
 
                 analyser.connect(WAVConvNode);
@@ -123,25 +135,31 @@ AudioRecorder = (function(toWavdownsamplerScript, outputSampleRate, OnUserStartS
             }).catch(console.error);
     }
 
+    /**
+     * Record One utterance (sentence)
+     */
     recordUtterence = function() {
         if (isListening) {
             console.log("Already Listening!!!!!!!");
             return;
         }
         audiochunks = [];
-        //audiochunks = new IPCStream('audioStreamData');
-        //ipcRenderer.send('streamspeechinit', true) ;
-        sleep(1500);
         OnUserStartSpeaking();
         isListening = true;
         homepageui.showMicListener();
         console.log("Speak Now");
+    }
 
-
+    setOutputSampleRate = function(outputSampleRate){
+        toWavdownsampler.postMessage({
+            command: "setOutputSampleRate",
+            outputSampleRate: outputSampleRate // desired output SR
+        });
     }
 
     return {
         init: init,
-        recordUtterence: recordUtterence
+        recordUtterence: recordUtterence,
+        setOutputSampleRate: setOutputSampleRate
     }
 });
