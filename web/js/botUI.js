@@ -114,20 +114,9 @@ $(function() {
         },
         retina_detect: true
     });
-
-    //////start from  here//////////////////////////////////////////////////////////////
-
-    //wait for half second after loading the page to show welcome message and about me
-    $(window).load(function() {
-        function showInitialMessage() {
-            $("#botMsg").show();
-            $("#info").show();
-        };
-        window.setTimeout(showInitialMessage, 500); // 1/2 second
-    });
-
 });
 
+ //////start from  here//////////////////////////////////////////////////////////////
 
 
 
@@ -179,7 +168,7 @@ var BotUiManipulator = function(options) {
                 <div class="container-fluid">
                     <div class="row">
                           <img src="images/${img}.png" height="30" width="30" class="pull-${side}">
-                          <div class="col-xs-7 pull-${side}" style="padding:3px;">
+                          <div class="col-xs-9 pull-${side}" style="padding:3px;">
                               <div id="msg-bubble-${side}" class="container-fluid pull-${side}">
                                   <p id="msg-info-name-${side}" style="font-size:11px; color:chocolate; margin:0px;">${username}</p>
                                   <p style="margin:0px; font-size:12px;">
@@ -217,7 +206,7 @@ var BotUiManipulator = function(options) {
                 <div class="container-fluid">
                     <div class="row">
                           <img src="images/bot.png" height="30" width="30" class="pull-left">
-                          <div class="col-xs-7 pull-left" style="padding:3px;">
+                          <div class="col-xs-9 pull-left" style="padding:3px;">
                               <div id="msg-bubble-left" class="container-fluid pull-left">
                                     <div id="wave">
                                         <span class="dot"></span>
@@ -237,7 +226,16 @@ var BotUiManipulator = function(options) {
     this.hideWaitingBox = function() {
         $('#waitMsg').last().remove();
     }
-
+    
+    this.showAboutBotInfoInitial=function(){
+        var bodyhtml=`
+            <h3>What do I know?</h3>
+            <h4>Hi I am speclist in searching about Movie Reviews, Playing you tube videos, you tube songs, and much more!</h4>
+        `;
+        $('#intentOutput #title').html('About me!');
+        $('#intentOutput #intentBody').html(bodyhtml);
+    }
+    
     /*
      * Pass options when class instantiated
      */
@@ -250,6 +248,15 @@ var homepageui = new BotUiManipulator();
 
 // All User Events
 $(function() {
+    
+    //wait for half second after loading the page to show welcome message and about me
+    $(window).load(function() {
+        function showInitialMessage() {
+            $("#botMsg").show();
+            homepageui.showAboutBotInfoInitial();
+        };
+        window.setTimeout(showInitialMessage, 500); // 1/2 second
+    });
 
     $('#send').click(function(event) {
         userMsgText = $('#queryInput').val();
@@ -316,7 +323,7 @@ let speechToText = function(stt){
 ipcRenderer.on('fullfillmentText', (event, data) => {
     if(data.userText != null && data.userText != '')
         homepageui.addUserMessage(data.userText);
-
+    
     homepageui.hideWaitingBox();
     homepageui.addBotMessage(data.botText);
     //console.log(data.outputAudio);
