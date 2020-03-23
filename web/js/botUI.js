@@ -1,6 +1,6 @@
 //const { ipcRenderer } = require('electron');
 
-const { Buffer } = global;
+//const { Buffer } = global;
 
 $(function() {
     //for css particle /////////////////////////////////////////////////////////////////
@@ -114,6 +114,7 @@ $(function() {
         },
         retina_detect: true
     });
+    
 });
 
  //////start from  here//////////////////////////////////////////////////////////////
@@ -288,6 +289,95 @@ $(function() {
 
 });
 
+//////////////////class for middle part information of the page///////////////////////////////
+
+var currentIntentInformation = function(){
+    
+    this.changeTitle=function(title){
+         $('#intentOutput #title').html(title);
+    }
+    this.changeBody=function(bodycontent){
+        var bodyhtml=`
+            <h4>${bodycontent}</h4>
+        `;
+        $('#intentOutput #intentBody').html(bodyhtml);
+    }
+};
+
+//////////////////class for audio player/////////////////////////////////////////////
+
+var audioPlayer = function(){
+    
+    this.setSongTitle = function(title){
+        $('#songTitle').html(title);
+    }
+    this.setSongSubtitle=function(subtitle){
+        $('#songSubtitle').html(subtitle);
+    }
+    this.changeSongImage=function(url){
+        var img=`<img class="art" src="${url}">`;
+        $('#runningSongImage').html(img);
+    }
+    this.updateCurrentRunningTime=function(runningtime){
+        $('#audioRunningTime').html(runningtime);
+    }
+    this.updateEndTime=function(endTime){
+        $('#audioDurationTime').html(endtime);
+    }
+    //for changing fill color of song bar  by percentage provind in int type
+    this.songBarFillColor=function(percentage){
+        var actualpercentage=100-percentage;
+        var p="translateX(-"+actualpercentage+"%)";
+        $('#barstyle hr').css("-webkit-transform",p);
+        $('#barstyle hr').css("transform",p);
+    }
+    
+    //for adding song to back list
+    this.addSongToList=function(listid,imageurl,title,subtitle){
+        var list=`<div id="audioListItem-${listid}">
+                <a style="padding:5px;">
+                  <img src="${imageurl}">
+                  <div id="detail">
+                    <h3 id="list-title-${listid}" style="margin:0;">${title}</h3>
+                    <h4 id="list-subtitle-${listid}">${subtitle}</h4>
+                  </div>
+                </a>
+                <hr style="margin:0;width:100%;">
+            </div>
+        `;
+        $('#audiolist').append(list);
+    }
+};
+
+
+//for audio player class functions
+////////////////////////////////////////////////////////////////////
+var audioplayer=new audioPlayer();
+
+$(function(){
+    audioplayer.addSongToList("1","images/audio.jpg","Solid Gold (ft. MNDR)","Michna - Thousand Thursday");
+    audioplayer.addSongToList("1","images/audio.jpg","Solid Gold (ft. MNDR)","Michna - Thousand Thursday");
+    audioplayer.addSongToList("1","images/audio.jpg","Solid Gold (ft. MNDR)","Michna - Thousand Thursday");
+    audioplayer.setSongTitle("DJ1 XYZ");
+    audioplayer.songBarFillColor(40);
+    audioplayer.updateCurrentRunningTime("0:0");
+    
+    ///****////for audio player  ::take these two after calling any function of audio player ::so put it at the end of this file if calling audioplayer function outside it
+    $(".flip, .back a").click(function() {
+         $(".aud-player").toggleClass("playlist");
+    });
+
+    $(".bottom a")
+        .not(".flip")
+        .click(function() {
+            $(this).toggleClass("active");
+    });
+});
+/////////////////////////////////////////////////////////////////////
+
+
+
+
 let playAudioFromBytes = function( bytes, afterwards=null ) {  
 
     var buffer = new Uint8Array( bytes.length );
@@ -366,7 +456,6 @@ var BotInteraction = function(options) {
     // this will replace above function to expose better API to interact with bot accespting
     // functions and parameters
 }
-
 
 
 
