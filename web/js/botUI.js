@@ -1,6 +1,6 @@
 //const { ipcRenderer } = require('electron');
 
-//const { Buffer } = global;
+const { Buffer } = global;
 
 $(function() {
     //for css particle /////////////////////////////////////////////////////////////////
