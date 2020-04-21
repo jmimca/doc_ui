@@ -9,7 +9,7 @@
     <link href='https://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
     <!-- fonts -->
     <script defer src="fonts/js/all.js"></script>
-
+    
     <!-- our css file-->
     <link rel="stylesheet" href="css/botUI.css">
 </head>
@@ -25,8 +25,19 @@
             <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4 pull-right">
                 <div class="bot">
                     <!-- header of chatbot-->
-                    <div class="header">
-                        SmashBot
+                    <div class="header" id="botHeader">
+                        <span style="font-size:18px; margin-left:10px;">SmashBot</span>
+                        <div class="dropdown" id="dropdownmenu" style="float:right;">
+                          <span id="setting" data-toggle="dropdown" style="float:right; font-size: 22px; margin-right:6px;">
+                            <i class="fas fa-cog"></i>
+                          </span>
+                          <ul class="dropdown-menu dropdown-menu-right" style="color:#d72727">
+                            <br><li><a href="#appSettingModal" style="color:#d72727" data-toggle="modal" >App Setting</a></li><hr>
+                            <li><a href="#userSettingModel" style="color:#d72727" data-toggle="modal" >User Setting</a></li><hr>
+                            <li><a href="#skillSettingModel" style="color:#d72727" data-toggle="modal" >Skills Setting</a></li><br>
+                          </ul>
+                        </div>
+                        
                     </div>
                     <!-- chatting box-->
                     <div class="chat">
@@ -230,6 +241,8 @@
         hwdetect.start_detect(audRecoder.recordUtterence);
     </script>
     <script src="js/botUI.js"></script>
+    <script src="js/setting.js"></script>
+    
 </body>
 
 </html>

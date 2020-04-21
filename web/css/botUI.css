@@ -77,9 +77,10 @@ canvas{
     margin:5px;
     border-radius:40px;
     border:solid 1px #d72727;
-    padding:8px;
+    padding:5px;
     color:white;
-    font-size:15px;
+    padding-bottom:12px;
+    /* font-size:15px; */
 }
 /*chat container*/
 .chat{
@@ -140,7 +141,29 @@ img{
     color:black;
 }
 
+/* setting */
+#setting{
+  color:white;
+  position:relative;
+}
+#setting:hover{
+  cursor:pointer;
+}
+#setting{
+  -moz-transition: all 0.2s linear;
+  -webkit-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+}
 
+#setting.down{
+  -ms-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.dropdown-menu {
+  min-width: 150px !important;
+}
 
 /*footer styleing*/
 .footer{
@@ -165,6 +188,9 @@ img{
     padding-top:4px;
     padding-left:6px;
 }
+#mic:hover{
+  cursor:pointer;
+}
 #queryInput:focus{
     outline-width:0px;
 }
@@ -174,6 +200,9 @@ img{
     position:relative;
     padding:0px;
     padding-top:4px;
+}
+#send:hover{
+  cursor:pointer;
 }
 
 /////

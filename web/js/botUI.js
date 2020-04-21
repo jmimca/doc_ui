@@ -114,6 +114,15 @@ $(function() {
         },
         retina_detect: true
     });
+    //for setting icon
+    $.get("setting.html", function (data) {
+        // alert(data);
+        $("#botHeader").append(data);
+
+    });
+    $("#setting").click(function(){
+        $(this).toggleClass("down"); 
+    });
     
 });
 
