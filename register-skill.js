@@ -24,6 +24,9 @@ register_script('input', './skills/welcome.js');
 // handle translate intent/action
 register_script('translate', './skills/translate.js');
 
+// handle all finance intent/action
+register_script('finance', './skills/finance.js');
+
 
 
 
