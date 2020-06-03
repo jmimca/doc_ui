@@ -27,7 +27,7 @@ function getSymbol(searchQuery){
 
 };
 
-function fulfil_finance(response, temp_intent_fulfilment_action, isaudio=false){
+function fulfil_currency(response, temp_intent_fulfilment_action, isaudio=false){
 	
 	let encoder = new TextEncoder("utf-8"); 
 	let parameters = struct.decode(response.queryResult.parameters);
@@ -50,6 +50,43 @@ function fulfil_finance(response, temp_intent_fulfilment_action, isaudio=false){
 	}).catch(function (error) {
         console.log(error);
     });
+};
+
+function fulfil_stock(response, temp_intent_fulfilment_action, isaudio=false){
+	
+	let encoder = new TextEncoder("utf-8"); 
+	let parameters = struct.decode(response.queryResult.parameters);
+	let company_name = parameters["Company-Name"];
+	getSymbol(company_name).then((ans)=>{
+		skillAction = {
+			userText: isaudio ? response.queryResult.queryText : null , 
+			botText: encoder.encode(`${response.queryResult.fulfillmentText} ${ans}`),
+			outputAudio: response.outputAudio,
+			stt: {
+				text: encoder.encode(ans),
+				lang: 'en'
+			}
+		};
+		temp_intent_fulfilment_action(skillAction);
+	}).catch(function (error) {
+        console.log(error);
+    });
+};
+
+
+function main(response, temp_intent_fulfilment_action, isaudio=false){
+
+	subaction = response.queryResult.action.split('.')[1];
+	if(subaction=="currency") 
+	{
+		fulfil_currency(response, temp_intent_fulfilment_action, isaudio);
+	}
+	
+	
+	else if(subaction=="stock") 
+	{
+		fulfil_stock(response, temp_intent_fulfilment_action, isaudio);
+	}
 }
 
-module.exports = fulfil_finance;
+module.exports = main;
