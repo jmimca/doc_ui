@@ -43,7 +43,7 @@ class audioPlayerUI{
     // Chnage UI for current song
     loadsong(song){
         this.setSongTitle(song.title);
-        this.setSongSubtitle(song.author);
+        this.setSongSubtitle(song.author.name);
         this.changeSongImage(song.thumbnail);
     }
     
@@ -54,7 +54,7 @@ class audioPlayerUI{
                   <img src="${song.thumbnail}">
                   <div>
                     <h3 style="margin:0;">${song.title}</h3>
-                    <h4>${song.author}</h4>
+                    <h4>${song.author.name}</h4>
                   </div>
                 </a>
                 <hr style="margin:0;width:100%;">

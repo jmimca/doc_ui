@@ -32,7 +32,7 @@ function fulfil_currency(response, temp_intent_fulfilment_action, isaudio=false)
 	let encoder = new TextEncoder("utf-8"); 
 	let parameters = struct.decode(response.queryResult.parameters);
 	let currency_from = parameters["currency-from"];
-	let currency_to = parameters["currency-to"];
+	let currency_to = parameters["currency-to"] || 'INR';
 	let amount = parameters["amount"];
 	getSymbol(currency_from+currency_to).then((ans)=>{
 		if(amount!=0)
@@ -44,6 +44,10 @@ function fulfil_currency(response, temp_intent_fulfilment_action, isaudio=false)
 			stt: {
 				text: encoder.encode(ans),
 				lang: 'en'
+			},
+			intentOutput: {
+				title: encoder.encode(`${currency_from} -> ${currency_to}`),
+				body: encoder.encode(`${ans}`),
 			}
 		};
 		temp_intent_fulfilment_action(skillAction);
@@ -63,7 +67,12 @@ function fulfil_stock(response, temp_intent_fulfilment_action, isaudio=false){
 			stt: {
 				text: encoder.encode(ans),
 				lang: 'en'
+			},
+			intentOutput: {
+				title: encoder.encode(`${company_name} stock price`),
+				body: encoder.encode(`${ans}`),
 			}
+
 		};
 		temp_intent_fulfilment_action(skillAction);
 	})

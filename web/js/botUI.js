@@ -12,10 +12,10 @@ $(function() {
     $("#setting").click(function(){
         $(this).toggleClass("down"); 
     });
-    
+
     //for content3 time and date show
     
-    setInterval(function(){ 
+      setInterval(function(){ 
         var dt=new Date();
         var time=dt.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric',hour12: true });
         var date = dt.getDate()+'-'+(dt.getMonth()+1)+'-'+dt.getFullYear();
@@ -23,7 +23,7 @@ $(function() {
         $('#systemDate').html(date);
     }, 1000);
 
-});
+});  
 
  //////start from  here//////////////////////////////////////////////////////////////
 
@@ -197,20 +197,16 @@ $(function() {
 
 //////////////////class for middle part information of the page///////////////////////////////
 
-var currentIntentInformation = function(){
+function currentIntentInformation(title, bodycontent){
     
-    this.changeTitle=function(title){
-         $('#intentOutput #title').html(title);
-    }
-    this.changeBody=function(bodycontent){
-        var bodyhtml=`
+    $('#intentOutput #title').html(title);
+    let bodyhtml=`
             <h4>${bodycontent}</h4>
         `;
-        $('#intentOutput #intentBody').html(bodyhtml);
-    }
+    $('#intentOutput #intentBody').html(bodyhtml);
 };
 
-
+//////////////////class for audio player/////////////////////////////////////////////
 
 
 
@@ -270,6 +266,12 @@ ipcRenderer.on('newTempfullfillment', (event, data) => {
     if(data.botText != null && data.botText.length)
         homepageui.addBotMessage(decoder.decode(data.botText));
 
+
+    if(data.intentOutput != null && Object.keys(data.intentOutput).length !== 0 ){
+        currentIntentInformation(decoder.decode(data.intentOutput.title), decoder.decode(data.intentOutput.body));
+    }  else{
+        currentIntentInformation('SmashBot', 'PlayMusic, Translate, Get Finance Data, Get Movie Reviews and much more!');
+    }  
     let afterwards = null;    
     if(data.stt != null && Object.keys(data.stt).length !== 0 ){
         //speechToText({text:Buffer.from(data.stt.text).toString('utf-8'), lang: data.stt.lang});
@@ -297,9 +299,9 @@ ipcRenderer.on('newTempfullfillment', (event, data) => {
 
     }
     
-  
+     
 
-   
+
 });
 
 

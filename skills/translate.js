@@ -26,16 +26,17 @@ function fulfil_translate(response, temp_intent_fulfilment_action, isaudio=false
         .then((googletranslatemobile)=>{
             const $ = cheerio.load(googletranslatemobile.data);
             let translated_text = $('body > div.t0').text(); 
-            let enver = $('body > div.o1').text() || translated_text; 
+            let enver = $('body > div.o1').text() || null; 
             let botoutputtext;
             let encoder = new TextEncoder("utf-8");
             // english version if present
-            if(!enver){
-                enver = translated_text;
-                botoutputtext = `${response.queryResult.fulfillmentText} ${translated_text}`;
-            }else{
-                botoutputtext = `${response.queryResult.fulfillmentText} ${enver} (${translated_text})`;
+            ans = translated_text;
+            if(enver){
+                ans = `${enver} (${translated_text})`;
             }
+
+            botoutputtext = `${response.queryResult.fulfillmentText} ${ans}`;
+
             console.log(botoutputtext);
 
             skillAction = {
@@ -43,8 +44,12 @@ function fulfil_translate(response, temp_intent_fulfilment_action, isaudio=false
                 botText: encoder.encode(botoutputtext),
                 outputAudio: response.outputAudio,
                 stt: {
-                    text: encoder.encode(enver),
-                    lang: lang_to
+                    text: encoder.encode(translated_text || enver),
+                    lang: lang_to || 'en'
+                },
+                intentOutput: {
+                    title: encoder.encode('Translation'),
+                    body: encoder.encode(`${ans}`),
                 }
             };
 

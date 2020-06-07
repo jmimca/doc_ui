@@ -30,7 +30,8 @@ register_script('finance', './skills/finance.js');
 // handle all music intent/action
 register_script('music', './skills/youtube_dl.js');
 
-
+// handle all sentiment 
+register_script('sentiment', './skills/moviereview.js');
 
 
 module.exports.allSkills = allSkills;
