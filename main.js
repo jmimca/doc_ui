@@ -29,14 +29,6 @@ app.on('ready', function() {
 
 ipcMain.on("intentDetectText", async (event, text) => {
     response = await dgflow.detectTextIntent(text);
-    /*console.log(response);
-    forUIUpdate = {
-        botText: response.queryResult.fulfillmentText,
-        userText: null,
-        outputAudio: response.outputAudio,
-    };*/
-    // TODO Handle user Intent
-    //event.sender.send("fullfillmentText",forUIUpdate);
     handle_action(response);
 });
 
@@ -44,24 +36,33 @@ ipcMain.on("intentDetectText", async (event, text) => {
 ipcMain.on("intentDetectAudio", async (event, audiodata, sampleRateHertz) => {
     var buff = Buffer.from(audiodata);
     response = await dgflow.detectAudioIntent(buff, sampleRateHertz);
-    /*console.log(response);
-    forUIUpdate = {
-        botText: response.queryResult.fulfillmentText,
-        userText: response.queryResult.queryText,
-        outputAudio: response.outputAudio,
-    };*/
-    // TODO Handle user Intent
-    //event.sender.send("fullfillmentText", forUIUpdate);
     handle_action(response, isAudio=true);
 });
 
 
 async function handle_action(response, isAudio=false){
     action = response.queryResult.action.split('.')[0];
-    allSkills[action].forEach(skillFunction => {
-        // calling skill function with fullfullment callback
-        skillFunction(response, temp_intent_fulfilment_action, isAudio);
-    });
+    try{
+        allSkills[action].forEach(skillFunction => {
+            // calling skill function with fullfullment callback
+            skillFunction(response, temp_intent_fulfilment_action, isAudio);
+        });
+    }catch(err){
+        console.log(err);
+        console.log(response);
+        temp_intent_fulfilment_action(
+            {
+                userText: isaudio ? response.queryResult.queryText : null,
+                botText: encoder.encode(botoutputtext),
+                outputAudio: response.outputAudio,
+                stt: {
+                    text: encoder.encode('Sorry, request coud not match intent to a skill.'),
+                    lang: 'en'
+                }
+            }
+        );
+    }
+
 }
 
 

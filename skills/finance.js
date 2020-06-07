@@ -47,9 +47,7 @@ function fulfil_currency(response, temp_intent_fulfilment_action, isaudio=false)
 			}
 		};
 		temp_intent_fulfilment_action(skillAction);
-	}).catch(function (error) {
-        console.log(error);
-    });
+	})
 };
 
 function fulfil_stock(response, temp_intent_fulfilment_action, isaudio=false){
@@ -68,9 +66,7 @@ function fulfil_stock(response, temp_intent_fulfilment_action, isaudio=false){
 			}
 		};
 		temp_intent_fulfilment_action(skillAction);
-	}).catch(function (error) {
-        console.log(error);
-    });
+	})
 };
 
 

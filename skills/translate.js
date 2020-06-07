@@ -51,10 +51,7 @@ function fulfil_translate(response, temp_intent_fulfilment_action, isaudio=false
             temp_intent_fulfilment_action(skillAction);
 
         })
-        .catch(error => {
-            console.log(error);
-            console.log(response);
-        });
+
 }
 
 

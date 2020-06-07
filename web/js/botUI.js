@@ -315,76 +315,6 @@ var currentIntentInformation = function(){
 
 //////////////////class for audio player/////////////////////////////////////////////
 
-var audioPlayer = function(){
-    
-    this.setSongTitle = function(title){
-        $('#songTitle').html(title);
-    }
-    this.setSongSubtitle=function(subtitle){
-        $('#songSubtitle').html(subtitle);
-    }
-    this.changeSongImage=function(url){
-        var img=`<img class="art" src="${url}">`;
-        $('#runningSongImage').html(img);
-    }
-    this.updateCurrentRunningTime=function(runningtime){
-        $('#audioRunningTime').html(runningtime);
-    }
-    this.updateEndTime=function(endTime){
-        $('#audioDurationTime').html(endtime);
-    }
-    //for changing fill color of song bar  by percentage provind in int type
-    this.songBarFillColor=function(percentage){
-        var actualpercentage=100-percentage;
-        var p="translateX(-"+actualpercentage+"%)";
-        $('#barstyle hr').css("-webkit-transform",p);
-        $('#barstyle hr').css("transform",p);
-    }
-    
-    //for adding song to back list
-    this.addSongToList=function(listid,imageurl,title,subtitle){
-        var list=`<div id="audioListItem-${listid}">
-                <a style="padding:5px;">
-                  <img src="${imageurl}">
-                  <div id="detail">
-                    <h3 id="list-title-${listid}" style="margin:0;">${title}</h3>
-                    <h4 id="list-subtitle-${listid}">${subtitle}</h4>
-                  </div>
-                </a>
-                <hr style="margin:0;width:100%;">
-            </div>
-        `;
-        $('#audiolist').append(list);
-    }
-};
-
-
-//for audio player class functions
-////////////////////////////////////////////////////////////////////
-var audioplayer=new audioPlayer();
-
-$(function(){
-    audioplayer.addSongToList("1","images/audio.jpg","Solid Gold (ft. MNDR)","Michna - Thousand Thursday");
-    audioplayer.addSongToList("1","images/audio.jpg","Solid Gold (ft. MNDR)","Michna - Thousand Thursday");
-    audioplayer.addSongToList("1","images/audio.jpg","Solid Gold (ft. MNDR)","Michna - Thousand Thursday");
-    audioplayer.setSongTitle("DJ1 XYZ");
-    audioplayer.songBarFillColor(40);
-    audioplayer.updateCurrentRunningTime("0:0");
-    
-    ///****////for audio player  ::take these two after calling any function of audio player ::so put it at the end of this file if calling audioplayer function outside it
-    $(".flip, .back a").click(function() {
-         $(".aud-player").toggleClass("playlist");
-    });
-
-    $(".bottom a")
-        .not(".flip")
-        .click(function() {
-            $(this).toggleClass("active");
-    });
-});
-/////////////////////////////////////////////////////////////////////
-
-
 
 
 let playAudioFromBytes = function( bytes, afterwards=null ) {  
@@ -450,10 +380,27 @@ ipcRenderer.on('newTempfullfillment', (event, data) => {
         afterwards.fn = speechToText;
         afterwards.params = {text:decoder.decode(data.stt.text), lang: data.stt.lang};
     }      
-
-    
     if(data.outputAudio != null && data.outputAudio.length)
-        playAudioFromBytes(data.outputAudio, afterwards);   
+        playAudioFromBytes(data.outputAudio, afterwards); 
+
+    if(data.music != null && Object.keys(data.music).length !== 0  ){
+        let cmd = data.music.cmd;
+        if(cmd=='play'){
+            if(data.music.song){
+                audpl.add(data.music.song)
+            }else{
+                audpl.playSong();
+            }
+            
+        }else if(cmd=='pause'){
+            audpl.pauseSong();
+        }else if(cmd=='next'){
+            audpl.playNext();
+        }
+
+    }
+    
+  
 
    
 });

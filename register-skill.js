@@ -27,6 +27,9 @@ register_script('translate', './skills/translate.js');
 // handle all finance intent/action
 register_script('finance', './skills/finance.js');
 
+// handle all music intent/action
+register_script('music', './skills/youtube_dl.js');
+
 
 
 
