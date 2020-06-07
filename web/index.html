@@ -15,11 +15,8 @@
 </head>
 
 <body>
-    <!-- particles.js container -->
-    <div id="particles-js"></div>
-
     <!-- for chat bot and info container-->
-    <div class="container-fluid">
+    <div class="container-fluid" style="margin: 0 50px;">
         <div class="row">
             <!-- chat bot container-->
             <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4 pull-right">
@@ -84,23 +81,21 @@
                         <div class="row">
                             <!--div for static content to be shown in the panel (non scrollable div)-->
                             <div class="col-xs-4" id="staticContent" style="padding:0px;">
-                                <div id="content1" style="height:35%; width:100%; border-bottom:solid 1px black; border-top-left-radius: 20px;">
-                                    static content id=content1
+                                <div id="content1" style="height:15%; width:100%; border-bottom:solid 1px black; border-top-left-radius: 20px;">
                                 </div>
-                                <div id="content2" style="height:55%; width:100%; border-bottom:solid 1px black;">
+                                <div id="content2" style="height:70%; width:100%; border-bottom:solid 1px black;">
                                     <div class='container-fluid' style="height:100%; width:100%; padding:1px;">
                                     <div id="audioPlayer" class='aud-player' style="height:100%; width:100%;">
                                       <div class='back' style="height:100%; width:100%;">
-                                        <header style="height:20%; color:#d72727;">
+                                        <header style="height:20%; color:black;">
                                           <h2 style="margin:0;">
                                             <a>&lsaquo;</a>
                                           </h2>
                                           <h3 style="margin:0;">Up Next</h3>
                                         </header>
                                         <div id="audiolist" class='aud-player-upnext' style="padding:0px; height:80%;">
-<!--                                            to add items in list-->
+                                        <!--  to add items in list-->
 
-                                          
                                         </div>
                                       </div>
                                       <div class='front' style="height:100%; width:100%;">
@@ -145,19 +140,10 @@
                                           <div class='controls bottom' style="height:20%;">
                                             <!-- 
                                             <a id="like">
-                                              <svg viewBox='0 0 24 20'>
-                                                <path d='M13.2373287,1.79729532 C15.7059873,-0.59131555 19.6719532,-0.59131555 22.1445244,1.80184551 C24.6188818,4.21700618 24.6188818,8.1293472 22.1428711,10.5355725 L12.713653,19.7107814 C12.3197664,20.0940573 11.6860418,20.0986738 11.2878246,19.7110025 L1.8660259,10.5387159 C-0.621617914,8.13135849 -0.621617914,4.21556839 1.86368241,1.79993513 C3.07278074,0.634789609 4.67258351,0 6.32148154,0 C7.96903306,0 9.56085834,0.633814887 10.7729901,1.80153767 L12.0029801,3.00139253 L13.2373287,1.79729532 Z M20.041022,8.41556527 C21.3200493,7.17258662 21.3200493,5.16867425 20.0431981,3.922352 C18.7408346,2.66182552 16.6367424,2.66182552 15.3381723,3.91827146 L12.7184593,6.47380052 C12.3233088,6.85926968 11.6838285,6.86042189 11.2807479,6.46721195 L8.67450711,3.9247929 C8.03187321,3.30572487 7.19151346,2.97111997 6.32148154,2.97111997 C5.4489221,2.97111997 4.60106916,3.30754159 3.96039524,3.92491574 C2.67871929,5.17068349 2.67871929,7.17114678 3.96586581,8.41676109 L12.00095,16.2390493 L20.041022,8.41556527 Z'></path>
-                                              </svg>
                                             </a>
                                             <a id="dontRepeat">
-                                              <svg viewBox='0 0 24 20'>
-                                                <path d='M10.1639425,10 L5.222766,17 L1.00700182,17 C0.450850071,17 0,17.4426603 0,17.9989566 L0,19.0010434 C0,19.5527519 0.45097518,20 0.990777969,20 L6,20 C6.4873848,20 6.94438517,19.7632025 7.22545179,19.3650248 L12,12.6010815 L16.7745482,19.3650248 C17.0556148,19.7632025 17.5126152,20 18,20 L23.009222,20 C23.5564136,20 24,19.5573397 24,19.0010434 L24,17.9989566 C24,17.4472481 23.5547099,17 22.9929982,17 L18.777234,17 L13.8360575,10 L18.777234,3 L22.9929982,3 C23.5491499,3 24,2.55733967 24,2.00104344 L24,0.998956561 C24,0.447248087 23.5490248,0 23.009222,0 L18,0 C17.5126152,0 17.0556148,0.236797487 16.7745482,0.634975204 L12,7.39891849 L7.22545179,0.634975204 C6.94438517,0.236797487 6.4873848,0 6,0 L0.990777969,0 C0.443586406,0 0,0.442660332 0,0.998956561 L0,2.00104344 C0,2.55275191 0.445290091,3 1.00700182,3 L5.222766,3 L10.1639425,10 Z'></path>
-                                              </svg>
                                             </a>
                                             <a id="repeat">
-                                              <svg viewBox='0 0 24 20'>
-                                                <path d='M18,2.00104344 C18,2.55275191 18.4426603,3 18.9989566,3 L21,3 L21,17 L3,17 L3,3 L11.0024554,3 C11.553384,3 12,2.55733967 12,2.00104344 L12,0.998956561 C12,0.447248087 11.544239,5.68434189e-14 10.9975267,5.68434189e-14 L1.00247329,5.68434189e-14 C0.448822582,5.68434189e-14 0,0.455305576 0,0.99180311 L0,19.0081969 C0,19.5559546 0.44746922,20 1.00069463,20 L22.9993054,20 C23.5519738,20 24,19.5446944 24,19.0081969 L24,0.99180311 C24,0.444045377 23.5490248,9.4128217e-14 23.009222,9.05011945e-14 L18.990778,6.35006168e-14 C18.4435864,5.98239479e-14 18,0.442660332 18,0.998956561 L18,2.00104344 Z'></path>
-                                              </svg>
                                             </a>
                                               -->
                                             <a id="flip" class='flip'>
@@ -176,8 +162,9 @@
                                     </div>
                                   </div>
                                 </div>
-                                <div id="content3" style="height:10%; width:100%; border-bottom:solid 1px black; border-bottom-left-radius: 20px;">
-                                    static content id=content3
+                                <div id="content3" style="height:15%; width:100%; border-bottom:solid 1px black; border-bottom-left-radius: 20px; text-align: center;">
+                                    <h3 id="systemTime"></h3>
+                                    <h5 id="systemDate"></h5>
                                 </div>
                             </div>
                             <!--div for dynamic output (scrollable div) to be shown in the panel-->
